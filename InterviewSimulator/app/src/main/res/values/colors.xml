@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#4285F4</color>
+    <color name="primary_dark">#3367D6</color>
+    <color name="primary_variant">#5C9CFF</color>
+    <color name="secondary">#34A853</color>
+    <color name="secondary_dark">#2D8E47</color>
+    <color name="secondary_variant">#4CC26B</color>
+    <color name="tertiary">#EA4335</color>
+    <color name="tertiary_dark">#C5372B</color>
+    <color name="tertiary_variant">#FF5A4D</color>
+    
+    <color name="background">#FFFFFF</color>
+    <color name="background_dark">#121212</color>
+    <color name="surface">#F8F9FA</color>
+    <color name="surface_dark">#1E1E1E</color>
+    
+    <color name="on_primary">#FFFFFF</color>
+    <color name="on_secondary">#FFFFFF</color>
+    <color name="on_tertiary">#FFFFFF</color>
+    <color name="on_background">#1E1E1E</color>
+    <color name="on_background_dark">#FFFFFF</color>
+    <color name="on_surface">#1E1E1E</color>
+    <color name="on_surface_dark">#FFFFFF</color>
+    
+    <color name="error">#B00020</color>
+    <color name="error_dark">#CF6679</color>
+    <color name="on_error">#FFFFFF</color>
+    
+    <!-- Additional colors for specific UI elements -->
+    <color name="divider">#1F000000</color>
+    <color name="divider_dark">#1FFFFFFF</color>
+    <color name="ripple">#1F000000</color>
+    <color name="ripple_dark">#1FFFFFFF</color>
+    <color name="scrim">#52000000</color>
+    
+    <!-- System colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
