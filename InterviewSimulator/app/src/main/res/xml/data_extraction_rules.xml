@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- Include all shared preferences except those containing sensitive data -->
+        <include domain="sharedpref" path="."/>
+        <exclude domain="sharedpref" path="authentication.xml"/>
+        
+        <!-- Include app's internal storage except sensitive directories -->
+        <include domain="root" path="."/>
+        <exclude domain="root" path="sensitive_data"/>
+        
+        <!-- Include database files except those with sensitive information -->
+        <include domain="database" path="."/>
+        <exclude domain="database" path="sensitive.db"/>
+    </cloud-backup>
+    <device-transfer>
+        <!-- Same rules as cloud backup -->
+        <include domain="sharedpref" path="."/>
+        <exclude domain="sharedpref" path="authentication.xml"/>
+        <include domain="root" path="."/>
+        <exclude domain="root" path="sensitive_data"/>
+        <include domain="database" path="."/>
+        <exclude domain="database" path="sensitive.db"/>
+    </device-transfer>
+</data-extraction-rules>
