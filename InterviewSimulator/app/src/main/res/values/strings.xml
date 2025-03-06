@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Interview Simulator</string>
+    
+    <!-- Welcome Screen -->
+    <string name="welcome_title">Interviewface</string>
+    <string name="welcome_subtitle">Proyecta tu futuro laboral\ncon el uso de nuestro\nsimulador de entrevistas</string>
+    <string name="welcome_description">Con este simulador podrás practicar tus habilidades de\nentrevistado y mejorar la selección de candidatos\npara tu empresa</string>
+    <string name="btn_login">Iniciar sesión</string>
+    <string name="btn_register">Registrarse</string>
+
+    <!-- Login Screen -->
+    <string name="login_title">Iniciar sesión</string>
+    <string name="hint_email">Correo electrónico</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="login_with">O iniciar sesión con</string>
+
+    <!-- Register Screen -->
+    <string name="register_title">Regístrese para comenzar su\npráctica de entrevista en vivo</string>
+    <string name="hint_full_name">Nombre completo</string>
+    <string name="hint_phone">Número de teléfono</string>
+    <string name="register_terms">Al hacer clic en \'Registrarse\', acepta nuestros términos\ny política de privacidad</string>
+    <string name="have_account">¿Ya tienes una cuenta?</string>
+
+    <!-- Home Screen -->
+    <string name="home_title">Seleccione el tipo de entrevista\nque desea realizar:</string>
+    <string name="interview_type_technical">Práctica técnica</string>
+    <string name="interview_type_sales">Ventas</string>
+    <string name="interview_type_product">Gerente de producto</string>
+    <string name="interview_type_software">Ingeniero de software</string>
+    <string name="interview_type_design">Diseñador de productos</string>
+    <string name="difficulty_level">Nivel de dificultad</string>
+    <string name="difficulty_easy">Fácil</string>
+    <string name="difficulty_normal">Normal</string>
+    <string name="difficulty_hard">Difícil</string>
+
+    <!-- Interview Screen -->
+    <string name="interview_title">Entrevista en progreso</string>
+    <string name="btn_text_response">Responder en texto</string>
+    <string name="btn_video_response">Responder en video</string>
+    <string name="btn_previous">Anterior</string>
+    <string name="btn_continue">Continuar</string>
+    <string name="btn_finish">Finalizar</string>
+
+    <!-- Profile Screen -->
+    <string name="profile_title">Perfil</string>
+    <string name="btn_edit_profile">Editar Perfil</string>
+    <string name="interview_history">Historial de entrevistas</string>
+    <string name="completed_interviews">Entrevistas completadas</string>
+    <string name="interview_speed">Velocidad de entrevistas</string>
+    <string name="effectiveness">Efectividad</string>
+    <string name="btn_new_simulation">Iniciar una nueva simulación</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Configuración</string>
+    <string name="settings_account">Cuenta</string>
+    <string name="settings_email_password">Correo y contraseña</string>
+    <string name="settings_notifications">Notificaciones</string>
+    <string name="settings_push_notifications">Notificaciones push</string>
+    <string name="settings_email_notifications">Notificaciones correo</string>
+    <string name="settings_language">Idioma</string>
+    <string name="settings_language_spanish">Español</string>
+    <string name="settings_change_language">Cambiar idioma</string>
+    <string name="settings_other">Otro</string>
+    <string name="settings_terms">Términos de servicio</string>
+    <string name="settings_privacy">Política de privacidad</string>
+    <string name="btn_sign_out">Cerrar sesión</string>
+    <string name="btn_delete_account">Eliminar cuenta</string>
+
+    <!-- Results Screen -->
+    <string name="results_title">Resultado entrevista</string>
+    <string name="overall_performance">Rendimiento general</string>
+    <string name="average_rating">Calificación promedio</string>
+    <string name="last_30_days">Últimos 30 días</string>
+    <string name="comments">Comentarios</string>
+    <string name="questions">Preguntas</string>
+    <string name="btn_restart">Comenzar de nuevo</string>
+    <string name="btn_home">Volver al inicio</string>
+</resources>
