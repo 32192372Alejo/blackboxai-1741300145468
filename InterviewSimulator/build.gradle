@@ -1,3 +1,10 @@
+buildscript {
+    ext {
+        compose_version = '1.4.3'
+        kotlin_version = '1.8.10'
+    }
+}
+
 plugins {
     id 'com.android.application' version '8.1.2' apply false
     id 'com.android.library' version '8.1.2' apply false
