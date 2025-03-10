@@ -1,14 +1,12 @@
 package com.example.interviewsimulator.ui.screens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -16,16 +14,16 @@ import androidx.compose.ui.unit.dp
 fun InterviewScreen(
     onFinishInterview: () -> Unit
 ) {
-    var currentStep by remember { mutableStateOf(1) }
     var isRecording by remember { mutableStateOf(false) }
+    var isVideoOn by remember { mutableStateOf(true) }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Entrevista en progreso") },
+                title = { Text("Entrevista en curso") },
                 navigationIcon = {
-                    IconButton(onClick = { /* Handle back navigation */ }) {
-                        Icon(Icons.Default.Close, "Close")
+                    IconButton(onClick = onFinishInterview) {
+                        Icon(Icons.Default.Close, "Close Interview")
                     }
                 }
             )
@@ -34,25 +32,51 @@ fun InterviewScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
+                .padding(paddingValues),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Progress indicator
-            LinearProgressIndicator(
-                progress = currentStep / 5f,
+            // Video preview area
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-            )
+                    .weight(1f)
+                    .padding(16.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Videocam,
+                    contentDescription = "Video Preview",
+                    modifier = Modifier.size(64.dp)
+                )
+            }
 
-            Text(
-                text = "Etapa $currentStep",
-                style = MaterialTheme.typography.titleMedium,
+            // Controls
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
-            )
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                IconButton(
+                    onClick = { isRecording = !isRecording }
+                ) {
+                    Icon(
+                        imageVector = if (isRecording) Icons.Default.Stop else Icons.Default.Mic,
+                        contentDescription = if (isRecording) "Stop Recording" else "Start Recording"
+                    )
+                }
 
-            // Question section
+                IconButton(
+                    onClick = { isVideoOn = !isVideoOn }
+                ) {
+                    Icon(
+                        imageVector = if (isVideoOn) Icons.Default.Videocam else Icons.Default.VideocamOff,
+                        contentDescription = if (isVideoOn) "Turn Off Camera" else "Turn On Camera"
+                    )
+                }
+            }
+
+            // Question area
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -62,105 +86,37 @@ fun InterviewScreen(
                     modifier = Modifier.padding(16.dp)
                 ) {
                     Text(
-                        text = "Pregunta",
+                        text = "Pregunta actual:",
                         style = MaterialTheme.typography.titleMedium
                     )
+                    Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = getCurrentQuestion(currentStep),
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(vertical = 8.dp)
+                        text = "¿Cuál ha sido tu experiencia más desafiante y cómo la manejaste?",
+                        style = MaterialTheme.typography.bodyLarge
                     )
                 }
             }
 
-            // Recording controls
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(
-                    onClick = { /* Toggle camera */ }
-                ) {
-                    Icon(Icons.Default.Videocam, "Camera")
-                }
-
-                FloatingActionButton(
-                    onClick = { isRecording = !isRecording }
-                ) {
-                    Icon(
-                        if (isRecording) Icons.Default.Stop else Icons.Default.Mic,
-                        if (isRecording) "Stop Recording" else "Start Recording"
-                    )
-                }
-
-                IconButton(
-                    onClick = { /* Toggle settings */ }
-                ) {
-                    Icon(Icons.Default.Settings, "Settings")
-                }
-            }
-
-            // Response options
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Button(
-                    onClick = { /* Handle text response */ },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Responder en texto")
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Button(
-                    onClick = { /* Handle video response */ },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Responder en video")
-                }
-            }
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            // Navigation buttons
+            // Action buttons
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                TextButton(
-                    onClick = { if (currentStep > 1) currentStep-- }
-                ) {
-                    Text("Anterior")
-                }
-
                 Button(
-                    onClick = {
-                        if (currentStep < 5) currentStep++
-                        else onFinishInterview()
-                    }
+                    onClick = { /* Skip question */ },
+                    modifier = Modifier.weight(1f).padding(end = 8.dp)
                 ) {
-                    Text(if (currentStep < 5) "Continuar" else "Finalizar")
+                    Text("Saltar")
+                }
+                Button(
+                    onClick = { /* Next question */ },
+                    modifier = Modifier.weight(1f).padding(start = 8.dp)
+                ) {
+                    Text("Siguiente")
                 }
             }
         }
-    }
-}
-
-private fun getCurrentQuestion(step: Int): String {
-    return when (step) {
-        1 -> "¿Cuál es tu experiencia con el desarrollo de aplicaciones móviles?"
-        2 -> "¿Cómo manejarías un conflicto en el equipo?"
-        3 -> "Describe un proyecto desafiante en el que hayas trabajado"
-        4 -> "¿Cuáles son tus objetivos profesionales a largo plazo?"
-        5 -> "¿Por qué te interesa trabajar en nuestra empresa?"
-        else -> ""
     }
 }
