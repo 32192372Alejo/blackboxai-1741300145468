@@ -19,9 +19,9 @@ fun ResultsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Resultado entrevista") },
+                title = { Text("Resultados") },
                 navigationIcon = {
-                    IconButton(onClick = { /* Handle close */ }) {
+                    IconButton(onClick = onNavigateToHome) {
                         Icon(Icons.Default.Close, "Close")
                     }
                 }
@@ -31,10 +31,11 @@ fun ResultsScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
+                .padding(paddingValues),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Score Section
             item {
-                // Overall Performance Score
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -45,127 +46,104 @@ fun ResultsScreen(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = "Rendimiento general",
+                            text = "Puntuación Total",
                             style = MaterialTheme.typography.titleLarge
                         )
-                        
                         Text(
-                            text = "4.8",
+                            text = "85%",
                             style = MaterialTheme.typography.displayLarge,
-                            modifier = Modifier.padding(vertical = 16.dp)
-                        )
-
-                        // Rating distribution
-                        RatingDistribution()
-                    }
-                }
-            }
-
-            item {
-                // Performance Graph
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                ) {
-                    Column(
-                        modifier = Modifier.padding(16.dp)
-                    ) {
-                        Text(
-                            text = "Calificación promedio",
-                            style = MaterialTheme.typography.titleMedium
-                        )
-                        Text(
-                            text = "4.8",
-                            style = MaterialTheme.typography.headlineMedium
-                        )
-                        Text(
-                            text = "Últimos 30 días +15%",
-                            style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.primary
                         )
-                    }
-                }
-            }
-
-            item {
-                // Comments Section
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                ) {
-                    Column(
-                        modifier = Modifier.padding(16.dp)
-                    ) {
                         Text(
-                            text = "Comentarios",
-                            style = MaterialTheme.typography.titleLarge,
-                            modifier = Modifier.padding(bottom = 16.dp)
-                        )
-
-                        FeedbackComment(
-                            text = "Estás haciendo bien en mantener el contacto visual",
-                            isPositive = true
-                        )
-
-                        FeedbackComment(
-                            text = "Tu ritmo de habla es muy rápido, intenta hablar más lento",
-                            isPositive = false
-                        )
-
-                        FeedbackComment(
-                            text = "Estás haciendo bien en apartar la mirada de vez en cuando",
-                            isPositive = true
+                            text = "¡Excelente desempeño!",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.secondary
                         )
                     }
                 }
             }
 
+            // Detailed Results
             item {
-                // Questions Section
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                ) {
-                    Column(
-                        modifier = Modifier.padding(16.dp)
-                    ) {
-                        Text(
-                            text = "Preguntas",
-                            style = MaterialTheme.typography.titleLarge,
-                            modifier = Modifier.padding(bottom = 16.dp)
-                        )
-
-                        QuestionItem("Háblame de ti")
-                        QuestionItem("¿Cuáles son tus fortalezas?")
-                        QuestionItem("¿Cuáles son tus debilidades?")
-                    }
-                }
-            }
-
-            item {
-                // Action Buttons
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
                 ) {
+                    Text(
+                        text = "Detalles por categoría",
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    )
+
+                    ResultCategory(
+                        title = "Comunicación",
+                        score = 90,
+                        icon = Icons.Default.Chat
+                    )
+                    ResultCategory(
+                        title = "Conocimiento Técnico",
+                        score = 85,
+                        icon = Icons.Default.Code
+                    )
+                    ResultCategory(
+                        title = "Resolución de Problemas",
+                        score = 80,
+                        icon = Icons.Default.Psychology
+                    )
+                    ResultCategory(
+                        title = "Experiencia Profesional",
+                        score = 85,
+                        icon = Icons.Default.Work
+                    )
+                }
+            }
+
+            // Feedback Section
+            item {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        Text(
+                            text = "Retroalimentación",
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.padding(bottom = 8.dp)
+                        )
+                        Text(
+                            text = "• Excelente manejo de conceptos técnicos\n" +
+                                  "• Buena claridad en las respuestas\n" +
+                                  "• Podría mejorar en ejemplos prácticos\n" +
+                                  "• Mantiene buen contacto visual",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                }
+            }
+
+            // Action Buttons
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
                     Button(
                         onClick = { /* Handle retry */ },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.weight(1f).padding(end = 8.dp)
                     ) {
-                        Text("Comenzar de nuevo")
+                        Text("Intentar de nuevo")
                     }
-
-                    OutlinedButton(
+                    Button(
                         onClick = onNavigateToHome,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 8.dp)
+                        modifier = Modifier.weight(1f).padding(start = 8.dp)
                     ) {
-                        Text("Volver al inicio")
+                        Text("Finalizar")
                     }
                 }
             }
@@ -174,85 +152,43 @@ fun ResultsScreen(
 }
 
 @Composable
-private fun RatingDistribution() {
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        RatingBar(rating = 5, percentage = 60)
-        RatingBar(rating = 4, percentage = 25)
-        RatingBar(rating = 3, percentage = 10)
-        RatingBar(rating = 2, percentage = 3)
-        RatingBar(rating = 1, percentage = 2)
-    }
-}
-
-@Composable
-private fun RatingBar(
-    rating: Int,
-    percentage: Int
+private fun ResultCategory(
+    title: String,
+    score: Int,
+    icon: ImageVector
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp),
+            .padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(
-            text = "$rating",
-            modifier = Modifier.width(24.dp),
-            style = MaterialTheme.typography.bodyMedium
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.size(24.dp)
         )
-        LinearProgressIndicator(
-            progress = percentage / 100f,
+        Column(
             modifier = Modifier
                 .weight(1f)
-                .height(8.dp)
-        )
+                .padding(horizontal = 16.dp)
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.bodyLarge
+            )
+            LinearProgressIndicator(
+                progress = score / 100f,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 4.dp)
+            )
+        }
         Text(
-            text = "$percentage%",
-            modifier = Modifier.width(48.dp),
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.End
+            text = "$score%",
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.primary
         )
-    }
-}
-
-@Composable
-private fun FeedbackComment(
-    text: String,
-    isPositive: Boolean
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            imageVector = if (isPositive) Icons.Default.CheckCircle else Icons.Default.Warning,
-            contentDescription = null,
-            tint = if (isPositive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(text = text)
-    }
-}
-
-@Composable
-private fun QuestionItem(
-    question: String
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            imageVector = Icons.Default.ArrowForward,
-            contentDescription = null
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(text = question)
     }
 }
