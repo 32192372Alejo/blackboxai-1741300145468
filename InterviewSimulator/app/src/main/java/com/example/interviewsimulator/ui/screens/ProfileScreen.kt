@@ -1,6 +1,7 @@
 package com.example.interviewsimulator.ui.screens
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -10,10 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.Image
-import androidx.compose.ui.res.painterResource
-import com.example.interviewsimulator.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -23,144 +22,109 @@ fun ProfileScreen() {
             TopAppBar(
                 title = { Text("Perfil") },
                 navigationIcon = {
-                    IconButton(onClick = { /* Handle back navigation */ }) {
+                    IconButton(onClick = { /* Handle navigation */ }) {
                         Icon(Icons.Default.ArrowBack, "Back")
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { /* Handle edit profile */ }) {
+                        Icon(Icons.Default.Edit, "Edit Profile")
                     }
                 }
             )
         }
     ) { paddingValues ->
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Profile Header
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                // Profile Image
-                Surface(
-                    modifier = Modifier
-                        .size(100.dp)
-                        .clip(CircleShape),
-                    color = MaterialTheme.colorScheme.primary
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.profile_placeholder),
-                        contentDescription = "Profile Picture",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Text(
-                    text = "Laila Khalil",
-                    style = MaterialTheme.typography.headlineMedium
-                )
-
-                Text(
-                    text = "Bogotá, Colombia",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                )
-
-                Text(
-                    text = "lailakhalil@gmail.com",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                )
-
-                Button(
-                    onClick = { /* Handle edit profile */ },
-                    modifier = Modifier.padding(top = 8.dp)
-                ) {
-                    Text("Editar Perfil")
-                }
-            }
-
-            // Interview Statistics
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
+            item {
                 Column(
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(
-                        text = "Historial de entrevistas",
-                        style = MaterialTheme.typography.titleMedium
-                    )
-
-                    Row(
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        contentDescription = "Profile Picture",
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        StatisticItem(
-                            title = "Entrevistas completadas",
-                            value = "25%"
-                        )
-                        StatisticItem(
-                            title = "Velocidad de entrevistas",
-                            value = "Medio"
-                        )
-                    }
-
-                    Text(
-                        text = "Efectividad",
-                        style = MaterialTheme.typography.titleMedium
+                            .size(120.dp)
+                            .clip(CircleShape)
+                            .padding(8.dp)
                     )
-
+                    
+                    Spacer(modifier = Modifier.height(16.dp))
+                    
                     Text(
-                        text = "Alta",
+                        text = "Juan Pérez",
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+                    
+                    Text(
+                        text = "Desarrollador de Software",
                         style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(vertical = 8.dp)
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+                }
+            }
 
-                    Button(
-                        onClick = { /* Start new simulation */ },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text("Iniciar una nueva simulación")
+            // Stats Section
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    StatItem(
+                        icon = Icons.Default.Star,
+                        value = "4.8",
+                        label = "Calificación"
+                    )
+                    StatItem(
+                        icon = Icons.Default.Assessment,
+                        value = "15",
+                        label = "Entrevistas"
+                    )
+                    StatItem(
+                        icon = Icons.Default.Timer,
+                        value = "25h",
+                        label = "Práctica"
+                    )
+                }
+            }
+
+            // Skills Section
+            item {
+                ProfileSection(title = "Habilidades") {
+                    Column {
+                        SkillItem("Desarrollo Android", 0.9f)
+                        SkillItem("Kotlin", 0.85f)
+                        SkillItem("Java", 0.8f)
+                        SkillItem("Flutter", 0.7f)
                     }
                 }
             }
 
-            // Bottom Navigation Icons
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(Icons.Default.Home, "Home")
-                    Text("Inicio", style = MaterialTheme.typography.labelSmall)
-                }
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(Icons.Default.PlayArrow, "Simulations")
-                    Text("Simulaciones", style = MaterialTheme.typography.labelSmall)
-                }
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(Icons.Default.Search, "Search")
-                    Text("Buscar", style = MaterialTheme.typography.labelSmall)
-                }
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(Icons.Default.Assessment, "Statistics")
-                    Text("Estadísticas", style = MaterialTheme.typography.labelSmall)
-                }
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(Icons.Default.Person, "Profile")
-                    Text("Más", style = MaterialTheme.typography.labelSmall)
+            // Experience Section
+            item {
+                ProfileSection(title = "Experiencia") {
+                    Column {
+                        ExperienceItem(
+                            title = "Senior Android Developer",
+                            company = "Tech Corp",
+                            period = "2020 - Presente"
+                        )
+                        ExperienceItem(
+                            title = "Mobile Developer",
+                            company = "App Solutions",
+                            period = "2018 - 2020"
+                        )
+                    }
                 }
             }
         }
@@ -168,19 +132,99 @@ fun ProfileScreen() {
 }
 
 @Composable
-private fun StatisticItem(
-    title: String,
-    value: String
+private fun StatItem(
+    icon: ImageVector,
+    value: String,
+    label: String
 ) {
-    Column {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary
         )
         Text(
             text = value,
-            style = MaterialTheme.typography.titleMedium
+            style = MaterialTheme.typography.titleLarge
+        )
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    }
+}
+
+@Composable
+private fun ProfileSection(
+    title: String,
+    content: @Composable () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        content()
+    }
+}
+
+@Composable
+private fun SkillItem(
+    skill: String,
+    progress: Float
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(skill)
+            Text("${(progress * 100).toInt()}%")
+        }
+        LinearProgressIndicator(
+            progress = progress,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp)
+        )
+    }
+}
+
+@Composable
+private fun ExperienceItem(
+    title: String,
+    company: String,
+    period: String
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleSmall
+        )
+        Text(
+            text = company,
+            style = MaterialTheme.typography.bodyMedium
+        )
+        Text(
+            text = period,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }
