@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    InterviewSimulatorApp()
+                    InterviewSimulatorNavigation()
                 }
             }
         }
@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun InterviewSimulatorApp() {
+fun InterviewSimulatorNavigation() {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "welcome") {
