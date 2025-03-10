@@ -1,90 +1,147 @@
 package com.example.interviewsimulator.ui.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.interviewsimulator.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WelcomeScreen(
     onNavigateToLogin: () -> Unit,
     onNavigateToRegister: () -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
     ) {
-        Text(
-            text = "Interviewface",
-            style = MaterialTheme.typography.headlineLarge,
-            modifier = Modifier.padding(top = 48.dp)
-        )
-        
-        Text(
-            text = "Proyecta tu futuro laboral\ncon el uso de nuestro\nsimulador de entrevistas",
-            style = MaterialTheme.typography.titleLarge,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(vertical = 24.dp)
-        )
-
-        // Interview sample images
-        LazyRow(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 24.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                .fillMaxSize()
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            items(3) { index ->
-                Card(
-                    modifier = Modifier
-                        .size(width = 160.dp, height = 120.dp)
-                ) {
-                    Image(
-                        painter = painterResource(id = when (index) {
-                            0 -> R.drawable.interview_sample_1
-                            1 -> R.drawable.interview_sample_2
-                            else -> R.drawable.interview_sample_3
-                        }),
-                        contentDescription = "Interview sample ${index + 1}"
-                    )
-                }
+            // App Logo/Icon
+            Icon(
+                imageVector = Icons.Default.Person,
+                contentDescription = "App Logo",
+                modifier = Modifier.size(120.dp),
+                tint = MaterialTheme.colorScheme.primary
+            )
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            // Welcome Text
+            Text(
+                text = "Bienvenido a\nInterview Simulator",
+                style = MaterialTheme.typography.headlineLarge,
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = "Practica y mejora tus habilidades para entrevistas",
+                style = MaterialTheme.typography.bodyLarge,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
+            Spacer(modifier = Modifier.height(48.dp))
+
+            // Feature Cards
+            FeatureCard(
+                icon = Icons.Default.VideoCall,
+                title = "Entrevistas simuladas",
+                description = "Practica con entrevistas realistas"
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            FeatureCard(
+                icon = Icons.Default.Analytics,
+                title = "Análisis detallado",
+                description = "Recibe retroalimentación personalizada"
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            FeatureCard(
+                icon = Icons.Default.School,
+                title = "Aprende y mejora",
+                description = "Mejora tus habilidades con cada práctica"
+            )
+
+            Spacer(modifier = Modifier.height(48.dp))
+
+            // Action Buttons
+            Button(
+                onClick = onNavigateToLogin,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Iniciar sesión")
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedButton(
+                onClick = onNavigateToRegister,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Registrarse")
             }
         }
+    }
+}
 
-        Spacer(modifier = Modifier.weight(1f))
-
-        Button(
-            onClick = onNavigateToLogin,
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun FeatureCard(
+    icon: ImageVector,
+    title: String,
+    description: String
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        )
+    ) {
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 8.dp)
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Iniciar sesión")
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(40.dp),
+                tint = MaterialTheme.colorScheme.primary
+            )
+            
+            Spacer(modifier = Modifier.width(16.dp))
+            
+            Column {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
-
-        OutlinedButton(
-            onClick = onNavigateToRegister,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Registrarse")
-        }
-
-        Text(
-            text = "Con este simulador podrás practicar tus habilidades de\n" +
-                  "entrevistado y mejorar la selección de candidatos\n" +
-                  "para tu empresa",
-            style = MaterialTheme.typography.bodySmall,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(vertical = 24.dp)
-        )
     }
 }
