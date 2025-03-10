@@ -9,8 +9,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+
+data class InterviewType(
+    val title: String,
+    val description: String,
+    val icon: ImageVector
+)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,34 +41,6 @@ fun HomeScreen(
                     }
                 }
             )
-        },
-        bottomBar = {
-            NavigationBar {
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Home, "Home") },
-                    label = { Text("Inicio") },
-                    selected = true,
-                    onClick = { }
-                )
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.PlayArrow, "Simulations") },
-                    label = { Text("Simulaciones") },
-                    selected = false,
-                    onClick = { }
-                )
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Search, "Search") },
-                    label = { Text("Buscar") },
-                    selected = false,
-                    onClick = { }
-                )
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Assessment, "Statistics") },
-                    label = { Text("Estadísticas") },
-                    selected = false,
-                    onClick = { }
-                )
-            }
         }
     ) { paddingValues ->
         Column(
@@ -194,12 +173,6 @@ private fun DifficultyOption(
         Text(text)
     }
 }
-
-private data class InterviewType(
-    val title: String,
-    val description: String,
-    val icon: ImageVector
-)
 
 private val interviewTypes = listOf(
     InterviewType(
